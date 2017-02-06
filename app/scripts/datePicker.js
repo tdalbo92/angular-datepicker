@@ -68,6 +68,7 @@ Module.directive('datePicker', ['datePickerConfig', 'datePickerUtils', function 
         eventIsForPicker = datePickerUtils.eventIsForPicker,
         step = parseInt(attrs.step || datePickerConfig.step, 10),
         partial = !!attrs.partial,
+        noIncremental = !!attrs.noIncremental,
         minDate = getDate('minDate'),
         maxDate = getDate('maxDate'),
         pickerID = element[0].id,
@@ -116,7 +117,7 @@ Module.directive('datePicker', ['datePickerConfig', 'datePickerUtils', function 
         scope.date = date;
 
         var nextView = scope.views[scope.views.indexOf(scope.view) + 1];
-        if ((!nextView || partial) || scope.model) {
+        if (((!nextView || partial) || scope.model) && (!noIncremental && !nextView)) {
           setDate(date);
         }
 
